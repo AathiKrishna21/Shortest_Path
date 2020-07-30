@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"  ></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Red+Rose:wght@700&display=swap" rel="stylesheet"> 
+	<title>COVID-19 ASSISTANT</title>
+		
+	</head>
+	<body style="background-color:#f0c1f7">
+
+
+	<section id="Nav-bar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+			<a  href="#"><img height="100px" width="100px" src="img/logo.png"></a>
+			<h1 id="topic">COVID-19 ASSISTANT</h1>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+    </ul>
+  </div>
+</nav>
+
+     </section>
+
+
+
+	<br><br>
+		<center> <br>
+					<form>
+
+						<div class="titles"><label><b>CURRENT LOCATION</b></label></div>
+						  <div class="titles1"><select id="country">
+							<option value="None" selected>-- Select --</option>
+							<option value="Home">Home</option>
+							<option value="Anbu Stores">Anbu Stores</option>
+							<option value="Sri Narayani Traders">Sri Narayani Traders</option>
+							<option value="Flower Market">Flower Market</option>
+							<option value="Kamala Hospital">Kamala Hospital</option>
+							<option value="Central Bank">Central Bank</option>
+							
+						  </select></div>
+							<br><br>
+						<div class="titles"><label><b>DESTINATION LOCATION</b></label></div>
+							<div class="titles1"><select id="shopping">
+							  <option value="None" selected>-- Select --</option>
+							  <option value="bank">Nearby Bank</option>
+							  <option value="hospital">Nearby hospital</option>
+							  <option value="grocery">Nearby grocery shop</option>
+							  <option value="market">Nearby Market</option>
+							  <option value="Home">Home</option>
+							</select> </div> <br><br>
+						<div class="titles"><button class="btn btn-outline-danger" type="button" onclick="solve()">Search</button></div>
+						</form>
+<div class="titles2"><p id="result"></p></div>
+						  <br>
+			<img src="img/map.jpeg" id="mapp" height="468px" width="547px" class="contain">
+			<br><br><br><br>
+			
+			<div class="titles"><label><b>MAP REFERRED:</b></label></div> <br>
+			
+					<iframe aria-hidden="false" class="contain1" frameborder="0" height="450" src="https://www.google.com/maps/embed?pb=!1m50!1m12!1m3!1d4965.992800609002!2d78.16303817347598!3d11.658403864308072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m35!3e0!4m3!3m2!1d11.6588739!2d78.1683944!4m5!1s0x3babf1ce244e1be3%3A0xd53cf4f545857d80!2sFlower%20Market%2C%20Car%20St%2C%20Narayana%20Nagar%2C%20I%20Agraharam%2C%20Salem%2C%20Tamil%20Nadu%20636001!3m2!1d11.6549958!2d78.1641922!4m5!1s0x3babf1ce4fc23ea9%3A0xf40bba5f1ce483ca!2sKamala%20Hospital%2C%202nd%20Agraharam%2C%20Salem%2C%20Tamil%20Nadu!3m2!1d11.656623!2d78.1643098!4m5!1s0x3babf1cf178d6af3%3A0x79c76c5860177962!2sAnbu%20Stores%2C%20106%2C%20636015%2C%20Muniyappan%20Kovil%20St%2C%20Membala%20Nagar%2C%20Kitchipalayam%2C%20Salem%2C%20Tamil%20Nadu%20636002!3m2!1d11.6586935!2d78.1657524!4m5!1s0x3babf1b23c9c539b%3A0x8f9fdb00e7a15889!2sSri%20Narayani%20Traders%2C%2055%2C%203rd%20Agraharam%20Rd%2C%20I%20Agraharam%2C%20Salem%2C%20Tamil%20Nadu%20636001!3m2!1d11.658937!2d78.1686201!4m5!1s0x3babf1cf74c5a039%3A0xfd4516bb9d3749c!2sNo.%20125%2C%20Central%20Bank%20of%20India%20-%20Salem%20Agraharam%20Road%20Branch%2C%20Agraharam%20Road%20Branch%2C%20206%2C%202nd%20Agraharam%2C%20I%20Agraharam%2C%20Salem%2C%20Tamil%20Nadu%20636001!3m2!1d11.6576794!2d78.1664693!5e0!3m2!1sen!2sin!4v1596014758826!5m2!1sen!2sin" style="border:0;" tabindex="0" width="600"></iframe>
+<br><br>
+
+		</center>
+	</body>
+</html>
+
+
+<script type="text/javascript">
+
+
+function solve() {
+
+var graph = {
+    "Home": {"Central Bank":300, "Sri Narayani Traders":50, "Flower Market":700},
+    "Anbu Stores": {"Kamala Hospital":1120, "Sri Narayani Traders":1300},
+    "Sri Narayani Traders": {"Home":50, "Anbu Stores":1300, "Kamala Hospital":2200},
+    "Flower Market": {"Kamala Hospital":210, "Home":700},
+    "Kamala Hospital": {"Sri Narayani Traders":2200, "Flower Market":210, "Anbu Stores":1120},
+    "Central Bank": {"Home":300},
+
+	};
+
+var e = document.getElementById("country");
+var curr = e.options[e.selectedIndex].value;
+
+var f = document.getElementById("shopping");
+var dest = f.options[f.selectedIndex].value;
+
+var imagee = document.getElementById('mapp');
+
+var s = curr;
+var start = s;
+
+/////dijikstra
+
+    var solutions = {};
+    solutions[s] = [];
+    solutions[s].dist = 0;
+    while(true) {
+        var parent = null;
+        var nearest = null;
+        var dist = Infinity;
+
+        for(var n in solutions) {
+            var adj = graph[n];
+            for(var a in adj) {
+                if(solutions[a])
+                    continue;
+                var len = adj[a];
+                if(len < dist) {
+                    parent = solutions[n];
+                    nearest = a;
+                    dist = len;
+                }
+            }
+        }
+
+        if(dist === Infinity) {
+            break; //no solution
+        }
+
+        solutions[nearest] = parent.concat(nearest);
+        solutions[nearest].dist = parent.dist + dist;
+    }
+
+		if((dest.localeCompare("None")==0) || (dest.localeCompare("None")==0))
+		{
+		document.getElementById("result").innerHTML = "<br><b>Invalid Input</b>";
+		imagee.src = "img/map.jpeg";
+		}
+
+		else if(dest.localeCompare(curr)==0)
+		{
+		document.getElementById("result").innerHTML = "<br><b>Open your eyes!! You are already in your location</b>";
+		}
+
+		else if(dest.localeCompare("Home")==0)
+		{
+					s="Home";
+    				document.getElementById("result").innerHTML = "<br>The Fastest route to reach your home is  <br> <b>" + start + " --> " + solutions[s].join(" --> ") + " </b><br>( Distance : " + solutions[s].dist +"m ) <br><br> <b> Check your directions below </b>";
+
+		}
+
+
+		else if(dest.localeCompare("grocery")==0)
+		{
+			if ((curr.localeCompare("Anbu Stores")==0) || (curr.localeCompare("Sri Narayani Traders")==0) )
+			{
+				document.getElementById("result").innerHTML = "<br> <b>You are already in a grocery Shop</b>";
+			}
+			else if( solutions["Anbu Stores"].dist < solutions["Sri Narayani Traders"].dist)
+				{
+					s="Anbu Stores";
+					document.getElementById("result").innerHTML = "<br>The nearest grocery Store from " + start + " is <b>The " + s + "</b> <br><br> The Fastest route to reach the destination is  <br> <b>" + start + " --> " + solutions[s].join(" --> ") + " </b><br>( Distance : " + solutions[s].dist +"m ) <br><br> <b> Check your directions below </b>";
+
+				}
+			else
+				{
+					s="Sri Narayani Traders";
+					document.getElementById("result").innerHTML = "<br>The nearest grocery Store from " + start + " is <b>The " + s + "</b> <br><br> The Fastest route to reach the destination is  <br> <b>" + start + " --> " + solutions[s].join(" --> ") + " </b><br>( Distance : " + solutions[s].dist +"m ) <br><br> <b> Check your directions below </b>";
+				}
+		}
+
+		else if(dest.localeCompare("bank")==0)
+		{
+			
+					s="Central Bank";
+					document.getElementById("result").innerHTML = "<br>The nearest bank from " + start + " is <b>The " + s + "</b> <br><br> The Fastest route to reach the destination is  <br> <b>" + start + " --> " + solutions[s].join(" --> ") + " </b><br>( Distance : " + solutions[s].dist +"m ) <br><br> <b> Check your directions below </b>";
+				
+		}
+		else if(dest.localeCompare("market")==0)
+		{
+			
+					s="Flower Market";
+					document.getElementById("result").innerHTML = "<br>The nearest market from " + start + " is <b>The " + s + "</b> <br><br> The Fastest route to reach the destination is  <br> <b>" + start + " --> " + solutions[s].join(" --> ") + " </b><br>( Distance : " + solutions[s].dist +"m ) <br><br> <b> Check your directions below </b>";
+				
+		}
+		else if(dest.localeCompare("hospital")==0)
+		{
+			
+					s="Kamala Hospital";
+					document.getElementById("result").innerHTML = "<br>The nearest hospital from " + start + " is <b>The " + s + "</b> <br><br> The Fastest route to reach the destination is  <br> <b>" + start + " --> " + solutions[s].join(" --> ") + " </b><br>( Distance : " + solutions[s].dist +"m ) <br><br> <b> Check your directions below </b>";
+				
+		}
+
+		
+
+	{
+
+
+
+	if(curr.localeCompare("Home")==0)
+		{ 		if (dest.localeCompare("market")==0)
+					imagee.src = "img/home/hometoflower.jpeg";
+				else if (dest.localeCompare("hospital")==0)
+					imagee.src = "img/home/hometokamala.jpeg";
+				else if (dest.localeCompare("grocery")==0)
+					imagee.src = "img/hometosri.jpeg";
+				else if	(dest.localeCompare("bank")==0)
+					imagee.src = "img/home/hometocb.jpeg";
+				else if (dest.localeCompare("Home")==0)
+					imagee.src = "img/map.jpeg";
+		}
+
+	else if(curr.localeCompare("Anbu Stores")==0)
+		{ 		if (dest.localeCompare("grocery")==0)
+					imagee.src = "img/map.jpeg";
+				else if (dest.localeCompare("hospital")==0)
+					imagee.src = "img/anbu/anbutokamala.jpeg";
+				else if (dest.localeCompare("market")==0)
+					imagee.src = "img/anbu/anbutoflower.jpeg";
+				else if	(dest.localeCompare("bank")==0)
+					imagee.src = "img/anbu/anbutocb.jpeg";
+				else if (dest.localeCompare("Home")==0)
+					imagee.src = "img/anbu/anbutohome.jpeg";
+		}
+
+	else if(curr.localeCompare("Sri Narayani Traders")==0)
+		{ 		if (dest.localeCompare("grocery")==0)
+					imagee.src = "img/map.jpeg";
+				else if (dest.localeCompare("hospital")==0)
+					imagee.src = "img/sri/sritokamala.jpeg";
+				else if (dest.localeCompare("market")==0)
+					imagee.src = "img/sri/sritoflower.jpeg";
+				else if	(dest.localeCompare("bank")==0)
+					imagee.src = "img/sri/sritocb.jpeg";
+				else if (dest.localeCompare("Home")==0)
+					imagee.src = "img/sri/sritohome.jpeg";
+		}
+
+	else if(curr.localeCompare("Flower Market")==0)
+		{ 		if (dest.localeCompare("grocery")==0)
+					imagee.src = "img/flower/flowertosri.jpeg";
+				else if (dest.localeCompare("hospital")==0)
+					imagee.src = "img/flower/flowertokamala.jpeg";
+				else if (dest.localeCompare("market")==0)
+					imagee.src = "img/map.jpeg";
+				else if	(dest.localeCompare("bank")==0)
+					imagee.src = "img/flower/flowertocb.jpeg";
+				else if (dest.localeCompare("Home")==0)
+					imagee.src = "img/flower/flowertohome.jpeg";
+		}
+
+	else if(curr.localeCompare("Kamala Hospital")==0)
+		{ 		if (dest.localeCompare("market")==0)
+					imagee.src = "img/kamala/kamalatoflower.jpeg";
+				else if (dest.localeCompare("hospital")==0)
+					imagee.src = "img/map.jpeg";
+				else if (dest.localeCompare("grocery")==0)
+					imagee.src = "img/kamala/kamalatoanbu.jpeg";
+				else if	(dest.localeCompare("bank")==0)
+					imagee.src = "img/kamala/kamalatocb.jpeg";
+				else if (dest.localeCompare("Home")==0)
+					imagee.src = "img/kamala/kamalatohome.jpeg";
+		}
+
+	else if(curr.localeCompare("Central Bank")==0)
+		{ 		if (dest.localeCompare("market")==0)
+					imagee.src = "img/cb/cbtoflower.jpeg";
+				else if (dest.localeCompare("hospital")==0)
+					imagee.src = "img/cb/cbtokamala.jpeg";
+				else if (dest.localeCompare("grocery")==0)
+					imagee.src = "img/cb/cbtosri.jpeg";
+				else if	(dest.localeCompare("bank")==0)
+					imagee.src = "img/map.jpeg";
+				else if (dest.localeCompare("Home")==0)
+					imagee.src = "img/cb/cbtohome.jpeg";
+		}
+
+	
+
+
+	}
+
+    return solutions;
+
+    }
+		</script>
+
